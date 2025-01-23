@@ -74,7 +74,7 @@ def insert_base_data(input: dict):
     conn.commit()
 
 
-@app.route("/", methods=["GET", "POST"])
+@app.route("/", methods=["POST"])
 def form():
     if request.method == "POST":
         item={}
