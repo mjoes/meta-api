@@ -15,6 +15,7 @@
     devShells.${system}.default = pkgs.mkShell {
       packages = with pkgs; [
         python3Packages.requests
+        python3Packages.flask
       ];
       shellHook = ''
         source .env
