@@ -1,1 +1,4 @@
 *.db
+result/
+**/__pycache__/*
+.env

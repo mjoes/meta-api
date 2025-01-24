@@ -11,14 +11,22 @@
     pkgs = import nixpkgs {
       inherit system;
     };
+
+    insert_app = import ./packages/insert_app/default.nix { python = pkgs.python3; };
   in {
+    packages.${system} = {
+      # insert_app = import ./packages/insert_app/default.nix { python = pkgs.python3; };
+      docker-insert-app = import ./docker/insert_app.nix { inherit pkgs; insert-app = insert_app; };
+    };
+
     devShells.${system}.default = pkgs.mkShell {
       packages = with pkgs; [
-        python3Packages.requests
-        python3Packages.flask
+          docker
+          python3Packages.flask
       ];
       shellHook = ''
         source .env
+        export PYTHONPATH=$PYTHONPATH:$PWD/packages/insert_app/src
       '';
     };
   };

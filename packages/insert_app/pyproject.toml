@@ -1,0 +1,17 @@
+[project]
+name = "insert-app"
+version = "0.0.1"
+dependencies = [
+  "flask"
+]
+
+[project.scripts]
+insert-app = "insert_app.__main__:run"
+
+[tools.setuptools.packages.find]
+where = [ "src" ]
+
+[build-system]
+build-backend = "setuptools.build_meta"
+requires = [ "setuptools" ]
+

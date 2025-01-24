@@ -1,7 +1,5 @@
 # meta-api
 
-Todo:
-- formatting
-- refactor
-- dict or class?
-- Package
+```
+docker run -p 5001:5001 --mount type=bind,src=/home/mj/repos/meta-api/metadata.db,dst=/var/lib/metadata.db docker-insert-app:latest
+```
