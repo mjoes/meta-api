@@ -36,4 +36,3 @@ FORM_HTML = """
     </body>
 </html>
 """
-

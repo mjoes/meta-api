@@ -5,4 +5,3 @@ pkgs.dockerTools.buildLayeredImage {
   tag = "latest";
   config.Entrypoint = [ "${insert-app}/bin/insert-app" ];
 }
-
