@@ -1,0 +1,39 @@
+name: Build and Push Docker Image
+
+on:
+  workflow_dispatch:
+    inputs:
+      container:
+        required: true
+        type: string
+  workflow_call:
+    inputs:
+      container:
+        required: true
+        type: string
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Nix
+        uses: cachix/install-nix-action@v21
+
+      - name: Build Docker Image with Nix
+        run: |
+          nix build .#${{ inputs.container }}
+          docker load < result
+
+      - name: Log in to GitHub Container Registry
+        run: echo "${{ secrets.GHCR_PAT }}" | docker login ghcr.io -u mjoes --password-stdin
+
+      - name: Tag Docker Image
+        run: docker tag ${{ inputs.container }}:latest ghcr.io/mjoes/${{ inputs.container }}:latest
+
+      - name: Push Docker Image
+        run: docker push ghcr.io/mjoes/${{ inputs.container }}:latest
+
